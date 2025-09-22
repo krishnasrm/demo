@@ -26,22 +26,8 @@
 
     - name: Create index.html with krNetworkCloud info and link
       ansible.builtin.copy:
+        src: index.html
         dest: /var/www/html/index.html
-        content: |
-          <html>
-          <head>
-            <title>krNetworkCloud</title>
-          </head>
-          <body>
-            <h1>Welcome to krNetworkCloud!</h1>
-            <p>We are a leading training institute providing DevOps, AWS, Linux, and cloud computing courses.</p>
-            <p>Visit our website:
-              <a href="https://krnetworkcloud.org/?srsltid=AfmBOoqLZPXbvbojiYDDETqYN-FTFzVe8l-XdLKBMSV109NQNfKUmP6n" target="_blank">
-                krNetworkCloud.org
-              </a>
-            </p>
-          </body>
-          </html>
         owner: root
         group: root
         mode: '0644'
