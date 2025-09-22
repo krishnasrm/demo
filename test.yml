@@ -1,8 +1,1 @@
----
-- name: Install and Start Apache HTTPD Service on CentOS
-  hosts: all
-  tasks:
-    - name: Install Apache HTTPD
-      yum:
-        name: httpd
-        state: present
+
