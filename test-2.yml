@@ -24,8 +24,6 @@
         owner: root
         group: root
 
-
-
     - name: Create index.html with krNetworkCloud info and link
       ansible.builtin.copy:
         src: index.html
@@ -34,28 +32,9 @@
         group: root
         mode: '0644'
       notify: Restart Apache
-    
-    # Handler to restart Apache
-    handlers:
-      - name: Restart Apache
-        ansible.builtin.service:
-          name: apache2    # use 'httpd' on CentOS/RHEL
-          state: restarted
 
-
-  #   - name: Create index.html with krNetworkCloud info and link
-  #     ansible.builtin.copy:
-  #       src: index.html
-  #       dest: /var/www/html/index.html
-  #       owner: root
-  #       group: root
-  #       mode: '0644'
-  #     notify: Restart Apache
-
-  # handlers:
-  #   - name: Restart Apache
-  #     ansible.builtin.service:
-  #       name: httpd
-  #       state: restarted
-
-
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: httpd  # Use 'httpd' for CentOS/RHEL
+        state: restarted
