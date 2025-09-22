@@ -1,0 +1,56 @@
+---
+- name: Install and Configure Apache with krNetworkCloud Page
+  hosts: all
+  become: yes
+
+  tasks:
+
+    - name: Install Apache HTTPD
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+
+    - name: Ensure Apache is running and enabled
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Ensure /var/www/html directory exists
+      ansible.builtin.file:
+        path: /var/www/html
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
+
+    - name: Create index.html with krNetworkCloud info and link
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <head>
+            <title>krNetworkCloud</title>
+          </head>
+          <body>
+            <h1>Welcome to krNetworkCloud!</h1>
+            <p>We are a leading training institute providing DevOps, AWS, Linux, and cloud computing courses.</p>
+            <p>Visit our website:
+              <a href="https://krnetworkcloud.org/?srsltid=AfmBOoqLZPXbvbojiYDDETqYN-FTFzVe8l-XdLKBMSV109NQNfKUmP6n" target="_blank">
+                krNetworkCloud.org
+              </a>
+            </p>
+          </body>
+          </html>
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart Apache
+
+  handlers:
+    - name: Restart Apache
+      ansible.builtin.service:
+        name: httpd
+        state: restarted
+
+
